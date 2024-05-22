@@ -6,11 +6,13 @@ import java.sql.SQLException;
 
 public class DatabaseConfig {
 
-    public Connection connect() throws SQLException {
+    public static Connection connect() throws SQLException, ClassNotFoundException {
 
-        String url = "jdbc:postgresql://localhost:5432/restoran_system";
+        Class.forName("org.postgresql.Driver");
+
+        String url = "jdbc:postgresql://localhost:5432/restaurant_system";
         String user = "postgres";
-        String password = "12345";
+        String password = "1234";
 
         return DriverManager.getConnection(url, user, password);
     }
