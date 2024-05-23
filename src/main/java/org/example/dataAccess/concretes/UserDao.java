@@ -34,4 +34,9 @@ public class UserDao implements IUserDao {
         resultSet.close();
         return users;
     }
+
+    @Override
+    public void add(User user) {
+
+    }
 }
