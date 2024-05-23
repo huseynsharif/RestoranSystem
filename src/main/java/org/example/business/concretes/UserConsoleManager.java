@@ -37,7 +37,7 @@ public class UserConsoleManager extends UserService {
 
 
 
-        return null;
+        return new UserRegisterRequest(fullName, email, password, role);
     }
 
     private String getRole(int select) {

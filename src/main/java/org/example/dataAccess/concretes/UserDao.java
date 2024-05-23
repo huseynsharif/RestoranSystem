@@ -35,6 +35,8 @@ public class UserDao implements IUserDao {
         return users;
     }
 
+    // TODO: add metodu yazilmalidir, bir de bilmirem db-a id ile birlikde gondermeliyik ya yox.
+    //  Men yazdiqimda id-e hele bele 0 verirem. Lazimsizdirsa ozun deyisersen ne isteyirsen et
     @Override
     public void add(User user) {
 
