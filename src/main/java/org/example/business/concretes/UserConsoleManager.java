@@ -32,12 +32,23 @@ public class UserConsoleManager extends UserService {
         String role = getRole(select);
 
         String fullName = getRequiredInput("full name");
-        String email = getRequiredInput("email");
+        String email = getEmail();
         String password = getRequiredInput("password");
 
 
 
         return new UserRegisterRequest(fullName, email, password, role);
+    }
+
+    private String getEmail() {
+
+        String email = getRequiredInput("email");
+
+        while (userDao.existsByEmail(email)){
+            email = getRequiredInput("email");
+        }
+
+        return email;
     }
 
     private String getRole(int select) {

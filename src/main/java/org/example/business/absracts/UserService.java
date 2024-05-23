@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public abstract class UserService {
 
-    private final IUserDao userDao;
+    protected final IUserDao userDao;
 
     public UserService(IUserDao userDao) {
         this.userDao = userDao;

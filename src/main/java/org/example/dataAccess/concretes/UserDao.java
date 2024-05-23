@@ -48,12 +48,17 @@ public class UserDao implements IUserDao {
             preparedStatement.setString(2, user.getEmail());
             preparedStatement.setString(3, user.getPassword());
             preparedStatement.setString(4, user.getRole());
-
             preparedStatement.executeUpdate();
             System.out.println("User added successfully!");
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    // TODO: email db-da varsa true yoxdursa false qaytarsin
+    @Override
+    public Boolean existsByEmail(String email) {
+        return null;
     }
 }

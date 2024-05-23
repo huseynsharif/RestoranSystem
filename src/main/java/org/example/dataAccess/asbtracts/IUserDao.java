@@ -10,4 +10,6 @@ public interface IUserDao {
 
     void add(User user) throws SQLException, ClassNotFoundException;
 
+    Boolean existsByEmail(String email);
+
 }
