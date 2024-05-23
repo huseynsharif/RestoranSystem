@@ -1,6 +1,7 @@
 package org.example.business.concretes;
 
 import org.example.business.absracts.UserService;
+import org.example.business.absracts.ValidateField;
 import org.example.dataAccess.asbtracts.IUserDao;
 import org.example.entities.dto.UserLoginRequest;
 import org.example.entities.dto.UserRegisterRequest;
@@ -19,10 +20,10 @@ public class UserConsoleManager extends UserService {
     @Override
     protected UserLoginRequest getLoginFields() {
 
-        String email = getEmail();
-        String password = getRequiredInput("Password");
+        String email = getRequiredInput("Email", userDao::existsByEmail);
+        String password = getRequiredInput("Password", (p) -> p.length() >= 8);
 
-        return null;
+        return new UserLoginRequest(email, password);
     }
 
     @Override
@@ -41,24 +42,12 @@ public class UserConsoleManager extends UserService {
 
         String role = getRole(select);
 
-        String fullName = getRequiredInput("full name");
-        String email = getEmail();
-        String password = getRequiredInput("password");
-
-
-
+        String fullName = getRequiredInput("full name", (a)->true);
+        String email = getRequiredInput("Email", userDao::existsByEmail);
+        String password = getRequiredInput("password",
+                (p) -> p.length() >= 8
+        );
         return new UserRegisterRequest(fullName, email, password, role);
-    }
-
-    private String getEmail() {
-
-        String email = getRequiredInput("email");
-
-        while (userDao.existsByEmail(email)){
-            email = getRequiredInput("email");
-        }
-
-        return email;
     }
 
     private String getRole(int select) {
@@ -73,11 +62,11 @@ public class UserConsoleManager extends UserService {
         System.out.println("--------------------------");
     }
 
-    private String getRequiredInput(String fieldName){
+    private String getRequiredInput(String fieldName, ValidateField validateField){
         System.out.printf("Enter your %s: ", fieldName);
         String field = scanner.nextLine();
-        while (field.isBlank()){
-            System.out.printf("%s is required. Please, reenter: ", fieldName);
+        while (field.isBlank() || validateField.handle(field)){
+            System.out.println("Something went wrong. Please, reenter: ");
             field = scanner.nextLine();
         }
 

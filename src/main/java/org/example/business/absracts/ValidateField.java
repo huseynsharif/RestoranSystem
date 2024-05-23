@@ -1,5 +1,6 @@
 package org.example.business.absracts;
 
+@FunctionalInterface
 public interface ValidateField {
-    void handle(String field);
+    Boolean handle(String field);
 }
