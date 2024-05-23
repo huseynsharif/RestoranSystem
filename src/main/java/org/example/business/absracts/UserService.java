@@ -22,7 +22,7 @@ public abstract class UserService {
 
         saveUser(user);
 
-        return new SuccessResult("Saved successfully");
+        return processLogin();
     }
 
     private void saveUser(UserRegisterRequest userRegisterRequest) throws SQLException, ClassNotFoundException {
@@ -38,14 +38,14 @@ public abstract class UserService {
         this.userDao.add(user);
     }
 
-    public DataResult<User> processLogin(){
+    public Result processLogin(){
         UserLoginRequest userLoginRequest = getLoginFields();
 
         User user = this.userDao.findByEmail(userLoginRequest.getEmail());
 
         return user.getPassword().equals(userLoginRequest.getPassword()) ?
-                new SuccessDataResult<>(user, "Logged in succesfully") :
-                new ErrorDataResult<User>("Email or password is incorrect");
+                new SuccessResult("Logged in succesfully") :
+                new ErrorResult("Email or password is incorrect");
 
     }
 
