@@ -16,7 +16,7 @@ public class UserConsoleManager extends UserService {
     }
 
     @Override
-    public UserRegisterRequest getFields() {
+    public UserRegisterRequest getRegisterFields() {
 
         System.out.println("Select your role: ");
         System.out.println("1) Customer");

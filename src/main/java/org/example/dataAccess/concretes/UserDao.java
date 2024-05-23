@@ -61,4 +61,10 @@ public class UserDao implements IUserDao {
     public Boolean existsByEmail(String email) {
         return null;
     }
+
+    // TODO: emaile gore user qaytarsin
+    @Override
+    public User findByEmail(String email) {
+        return null;
+    }
 }

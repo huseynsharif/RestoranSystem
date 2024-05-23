@@ -1,9 +1,9 @@
 package org.example.business.absracts;
 
-import org.example.core.results.Result;
-import org.example.core.results.SuccessResult;
+import org.example.core.results.*;
 import org.example.dataAccess.asbtracts.IUserDao;
 import org.example.entities.User;
+import org.example.entities.dto.UserLoginRequest;
 import org.example.entities.dto.UserRegisterRequest;
 
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ public abstract class UserService {
 
     public Result prosesRegister() throws SQLException, ClassNotFoundException {
 
-        UserRegisterRequest user = getFields();
+        UserRegisterRequest user = getRegisterFields();
 
         saveUser(user);
 
@@ -38,6 +38,19 @@ public abstract class UserService {
         this.userDao.add(user);
     }
 
-    public abstract UserRegisterRequest getFields();
+    public DataResult<User> processLogin(){
+        UserLoginRequest userLoginRequest = getLoginFields();
+
+        User user = this.userDao.findByEmail(userLoginRequest.getEmail());
+
+        return user.getPassword().equals(userLoginRequest.getPassword()) ?
+                new SuccessDataResult<>(user, "Logged in succesfully") :
+                new ErrorDataResult<User>("Email or password is incorrect");
+
+    }
+
+    protected abstract UserLoginRequest getLoginFields();
+
+    public abstract UserRegisterRequest getRegisterFields();
 
 }
