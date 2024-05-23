@@ -8,6 +8,6 @@ import java.util.List;
 public interface IUserDao {
     List<User> findAll() throws SQLException, ClassNotFoundException;
 
-    void add(User user);
+    void add(User user) throws SQLException, ClassNotFoundException;
 
 }

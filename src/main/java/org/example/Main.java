@@ -1,18 +1,16 @@
 package org.example;
 
-import org.example.dataAccess.asbtracts.IUserDao;
+import org.example.business.absracts.UserService;
+import org.example.business.concretes.UserConsoleManager;
 import org.example.dataAccess.concretes.UserDao;
-import org.example.entities.User;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws SQLException, ClassNotFoundException {
 
-        IUserDao userDao = new UserDao();
-
-        for (User user : userDao.findAll()) {
-            System.out.println(user.getFullName());
-        }
+        UserService userService = new UserConsoleManager(new UserDao(), new Scanner(System.in));
+        userService.prosesRegister();
 
     }
 }

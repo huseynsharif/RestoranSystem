@@ -6,6 +6,8 @@ import org.example.dataAccess.asbtracts.IUserDao;
 import org.example.entities.User;
 import org.example.entities.dto.UserRegisterRequest;
 
+import java.sql.SQLException;
+
 public abstract class UserService {
 
     private final IUserDao userDao;
@@ -14,7 +16,7 @@ public abstract class UserService {
         this.userDao = userDao;
     }
 
-    Result prosesRegister(){
+    public Result prosesRegister() throws SQLException, ClassNotFoundException {
 
         UserRegisterRequest user = getFields();
 
@@ -23,7 +25,7 @@ public abstract class UserService {
         return new SuccessResult("Saved successfully");
     }
 
-    private void saveUser(UserRegisterRequest userRegisterRequest) {
+    private void saveUser(UserRegisterRequest userRegisterRequest) throws SQLException, ClassNotFoundException {
 
         User user = new User(
                 0,
