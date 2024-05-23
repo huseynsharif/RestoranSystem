@@ -2,6 +2,7 @@ package org.example.business.concretes;
 
 import org.example.business.absracts.UserService;
 import org.example.dataAccess.asbtracts.IUserDao;
+import org.example.entities.dto.UserLoginRequest;
 import org.example.entities.dto.UserRegisterRequest;
 
 import java.util.Scanner;
@@ -13,6 +14,15 @@ public class UserConsoleManager extends UserService {
     public UserConsoleManager(IUserDao userDao, Scanner scanner) {
         super(userDao);
         this.scanner = scanner;
+    }
+
+    @Override
+    protected UserLoginRequest getLoginFields() {
+
+        String email = getEmail();
+        String password = getRequiredInput("Password");
+
+        return null;
     }
 
     @Override
