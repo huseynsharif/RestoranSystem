@@ -9,7 +9,7 @@ import org.example.entities.dto.UserRegisterRequest;
 public class UserManager implements UserService {
     @Override
     public Result register(UserRegisterRequest user) {
-
+        
 
         return null;
     }

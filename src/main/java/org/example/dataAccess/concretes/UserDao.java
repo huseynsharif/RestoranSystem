@@ -20,12 +20,13 @@ public class UserDao implements IUserDao {
         ResultSet resultSet = statement.executeQuery("select * from users");
         List<User> users = new ArrayList<>();
         while (resultSet.next()) {
-            User user = new User();
-            user.setId(resultSet.getInt("id"));
-            user.setFullName(resultSet.getString("full_name"));
-            user.setRole(resultSet.getString("email"));
-            user.setRole(resultSet.getString("role"));
-
+            User user = new User(
+                    resultSet.getInt("id"),
+                    resultSet.getString("full_name"),
+                    resultSet.getString("email"),
+                    resultSet.getString("password"),
+                    resultSet.getString("role")
+            );
             users.add(user);
         }
         connection.close();

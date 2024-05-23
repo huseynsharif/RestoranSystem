@@ -12,7 +12,7 @@ public class DatabaseConfig {
 
         String url = "jdbc:postgresql://localhost:5432/restaurant_system";
         String user = "postgres";
-        String password = "1234";
+        String password = "12345";
 
         return DriverManager.getConnection(url, user, password);
     }
