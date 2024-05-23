@@ -1,5 +1,6 @@
 package org.example.business.absracts;
 
+import lombok.RequiredArgsConstructor;
 import org.example.core.results.*;
 import org.example.dataAccess.asbtracts.IUserDao;
 import org.example.entities.User;
@@ -8,25 +9,18 @@ import org.example.entities.dto.UserRegisterRequest;
 
 import java.sql.SQLException;
 
+@RequiredArgsConstructor
 public abstract class UserService {
 
     protected final IUserDao userDao;
 
-    public UserService(IUserDao userDao) {
-        this.userDao = userDao;
-    }
-
-    public Result prosesRegister() throws SQLException, ClassNotFoundException {
-
+    public DataResult<User> prosesRegister() throws SQLException, ClassNotFoundException {
         UserRegisterRequest user = getRegisterFields();
-
         saveUser(user);
-
         return processLogin();
     }
 
     private void saveUser(UserRegisterRequest userRegisterRequest) throws SQLException, ClassNotFoundException {
-
         User user = new User(
                 0,
                 userRegisterRequest.getFullName(),
@@ -34,18 +28,21 @@ public abstract class UserService {
                 userRegisterRequest.getPassword(),
                 userRegisterRequest.getRole()
         );
-
         this.userDao.add(user);
     }
 
-    public Result processLogin(){
+    public DataResult<User> processLogin(){
         UserLoginRequest userLoginRequest = getLoginFields();
 
         User user = this.userDao.findByEmail(userLoginRequest.getEmail());
 
+        if (user==null){
+            return new ErrorDataResult<>("Email is incorrect.");
+        }
+
         return user.getPassword().equals(userLoginRequest.getPassword()) ?
-                new SuccessResult("Logged in succesfully") :
-                new ErrorResult("Email or password is incorrect");
+                new SuccessDataResult<>(user, "Logged in succesfully") :
+                new ErrorDataResult<>("Email or password is incorrect");
 
     }
 

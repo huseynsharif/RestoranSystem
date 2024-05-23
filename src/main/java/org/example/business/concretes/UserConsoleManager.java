@@ -1,5 +1,7 @@
 package org.example.business.concretes;
 
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.example.business.absracts.UserService;
 import org.example.business.absracts.ValidateField;
 import org.example.dataAccess.asbtracts.IUserDao;
@@ -20,8 +22,8 @@ public class UserConsoleManager extends UserService {
     @Override
     protected UserLoginRequest getLoginFields() {
 
-        String email = getRequiredInput("Email", userDao::existsByEmail);
-        String password = getRequiredInput("Password", (p) -> p.length() >= 8);
+        String email = getRequiredInput("Email", (a)->false);
+        String password = getRequiredInput("Password", (p) -> p.length() < 8);
 
         return new UserLoginRequest(email, password);
     }
@@ -41,11 +43,11 @@ public class UserConsoleManager extends UserService {
         }
 
         String role = getRole(select);
-
-        String fullName = getRequiredInput("full name", (a)->true);
+        scanner.nextLine();
+        String fullName = getRequiredInput("full name", (a)->false);
         String email = getRequiredInput("Email", userDao::existsByEmail);
         String password = getRequiredInput("password",
-                (p) -> p.length() >= 8
+                (p) -> p.length() < 8
         );
         return new UserRegisterRequest(fullName, email, password, role);
     }
@@ -63,9 +65,10 @@ public class UserConsoleManager extends UserService {
     }
 
     private String getRequiredInput(String fieldName, ValidateField validateField){
-        System.out.printf("Enter your %s: ", fieldName);
+        System.out.printf("Enter your %s: \n", fieldName);
         String field = scanner.nextLine();
-        while (field.isBlank() || validateField.handle(field)){
+
+        while (field.isEmpty() || validateField.handle(field)){
             System.out.println("Something went wrong. Please, reenter: ");
             field = scanner.nextLine();
         }

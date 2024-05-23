@@ -2,8 +2,10 @@ package org.example.business.concretes;
 
 import org.example.business.absracts.IHandler;
 import org.example.business.absracts.UserService;
-import org.example.core.results.Result;
+import org.example.core.results.DataResult;
+import org.example.entities.User;
 
+import java.awt.print.Pageable;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -26,14 +28,19 @@ public class Handler implements IHandler {
         line();
         int select = scanner.nextInt();
 
-        Result result = switch (select){
+        DataResult<User> result = switch (select){
             case 1 -> userService.prosesRegister();
             case 2 -> userService.processLogin();
             default -> throw new IllegalStateException("Unexpected value: " + select);
         };
 
         if (result.isSuccess()){
-            handleOrderPage();
+            if (result.getData().getRole().equalsIgnoreCase("Customer")){
+                handleCustomerPage();
+            }
+            else {
+                handleCourierPage();
+            }
         }
         else{
             System.out.println(result.getMessage());
@@ -41,7 +48,12 @@ public class Handler implements IHandler {
 
     }
 
-    private void handleOrderPage() {
+    private void handleCourierPage() {
+        System.out.println("curier");
+    }
+
+    private void handleCustomerPage() {
+        System.out.println("customer");
 
     }
 
