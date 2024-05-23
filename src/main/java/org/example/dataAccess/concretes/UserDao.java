@@ -56,15 +56,50 @@ public class UserDao implements IUserDao {
         }
     }
 
-    // TODO: email db-da varsa true yoxdursa false qaytarsin
+
     @Override
     public Boolean existsByEmail(String email) {
-        return null;
+        String sql = "select * from users where email = ?";
+
+        try (Connection connection = DatabaseConfig.connect()){
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, email);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+        }
+        catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
-    // TODO: emaile gore user qaytarsin
     @Override
     public User findByEmail(String email) {
+        String sql = "select * from users where email = ?";
+
+        try(Connection connection = DatabaseConfig.connect()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setString(1, email);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt("id"));
+                user.setFullName(resultSet.getString("full_name"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setRole(resultSet.getString("role"));
+                return user;
+            }
+        }
+        catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
         return null;
     }
 }
