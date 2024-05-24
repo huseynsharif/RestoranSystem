@@ -5,3 +5,13 @@ CREATE TABLE users (
         password VARCHAR(255) NOT NULL,
         role VARCHAR(50) NOT NULL
 );
+
+
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    customer_id INT NOT NULL,
+    courier_id INT,
+    order_name VARCHAR(255) NOT NULL,
+    active BOOLEAN,
+    creation_date TIMESTAMP
+);

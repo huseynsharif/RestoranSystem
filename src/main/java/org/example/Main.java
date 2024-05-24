@@ -17,7 +17,7 @@ public class Main {
 
         handler.handleSplashPage();
 
-        // orders table yarat
+        // orders table yarat  --- done
         // musteri order yaratmalidir
         // musteri butun orderlerine baxmalidir
         // kuryer order goturmelidir
