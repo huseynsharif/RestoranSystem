@@ -1,10 +1,7 @@
 package org.example.business.absracts;
 
 import org.example.Session;
-import org.example.core.results.DataResult;
-import org.example.core.results.Result;
-import org.example.core.results.SuccessDataResult;
-import org.example.core.results.SuccessResult;
+import org.example.core.results.*;
 import org.example.dataAccess.asbtracts.IOrderDao;
 import org.example.entities.Order;
 
@@ -29,11 +26,31 @@ public abstract class OrderService {
         return new SuccessResult("Order Successfully saved.");
     }
 
+    public DataResult<Order> prosesGetOrder(){
+        List<Order> orders = this.orderDao.findAllByIsStatusTrue();
+
+        if (orders.isEmpty()){
+            return new ErrorDataResult<>("There is no active order.");
+        }
+        else {
+            Order order = orders.get(0);
+            order.setActive(false);
+            this.orderDao.update(order);
+            return new SuccessDataResult<>(order, "Order successfully done.");
+        }
+
+    }
+
     protected abstract String getOrderName();
 
     public DataResult<List<Order>> getAllOrdersByCustomerId(){
         return new SuccessDataResult<>(this.orderDao.findByCustomerId(Session.loggedInUserId),
                 "All orders listed by customer id");
+    }
+
+    public DataResult<List<Order>> getAllOrdersByCourierId(){
+        return new SuccessDataResult<>(this.orderDao.findByCourierId(Session.loggedInUserId),
+                "All orders listed by courier id");
     }
 
 }

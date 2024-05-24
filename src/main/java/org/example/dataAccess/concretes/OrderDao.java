@@ -10,7 +10,7 @@ import java.util.List;
 public class OrderDao implements IOrderDao {
     @Override
     public void save(Order order) {
-        String sql = "INSERT INTO orders (customerId, orderName, active, creationDate) VALUES(?,?,?,?)";
+        String sql = "INSERT INTO orders (customer_id, order_name, active, creation_date) VALUES(?,?,?,?)";
         try (Connection connection = DatabaseConfig.connect()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, order.getCustomerId());
@@ -79,7 +79,7 @@ public class OrderDao implements IOrderDao {
 
     @Override
     public List<Order> findByCustomerId(int customerId) {
-        String sql = "SELECT * FROM orders WHERE customerId=?";
+        String sql = "SELECT * FROM orders WHERE customer_id=?";
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DatabaseConfig.connect()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -103,8 +103,8 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public List<Order> findByCourierIdAndStatusTrue(int courierId) {
-        String sql = "SELECT * FROM orders WHERE courierId=? AND active=true";
+    public List<Order> findByCourierId(int courierId) {
+        String sql = "SELECT * FROM orders WHERE courierId=?";
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DatabaseConfig.connect()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

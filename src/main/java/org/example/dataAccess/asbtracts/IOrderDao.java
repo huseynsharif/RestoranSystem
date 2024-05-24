@@ -10,5 +10,5 @@ public interface IOrderDao {
     Order findById(int id);
     void update(Order order);
     List<Order> findByCustomerId(int customerId);
-    List<Order> findByCourierIdAndStatusTrue(int courierId);
+    List<Order> findByCourierId(int courierId);
 }
