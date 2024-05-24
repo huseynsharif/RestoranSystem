@@ -6,5 +6,9 @@ import java.util.List;
 
 public interface IOrderDao {
     void save(Order order);
-    List<Order> findAll();
+    List<Order> findAllByIsStatusTrue();
+    Order findById(int id);
+    void update(Order order);
+    List<Order> findByCustomerIdAndStatusTrue(int customerId);
+    List<Order> findByCourierIdAndStatusTrue(int courierId);
 }

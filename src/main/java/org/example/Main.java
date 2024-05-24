@@ -18,10 +18,10 @@ public class Main {
         handler.handleSplashPage();
 
         // orders table yarat  --- done
-        // musteri order yaratmalidir
-        // musteri butun orderlerine baxmalidir
-        // kuryer order goturmelidir
-        // kuryer orderlerine baxmalidir
+        // musteri order yaratmalidir -- done save
+        // musteri butun orderlerine baxmalidir -- done findByCustomerIdAndStatusTrue
+        // kuryer order goturmelidir -- done  findAllByIsStatusTrue and update order
+        // kuryer orderlerine baxmalidir -- done findByCourierIdAndStatusTrue
 
     }
 }
