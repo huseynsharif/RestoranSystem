@@ -35,6 +35,7 @@ public abstract class OrderService {
         else {
             Order order = orders.get(0);
             order.setActive(false);
+            order.setCourierId(Session.loggedInUserId);
             this.orderDao.update(order);
             return new SuccessDataResult<>(order, "Order successfully done.");
         }

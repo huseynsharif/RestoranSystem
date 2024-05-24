@@ -104,7 +104,7 @@ public class OrderDao implements IOrderDao {
 
     @Override
     public List<Order> findByCourierId(int courierId) {
-        String sql = "SELECT * FROM orders WHERE courier_id=?";
+        String sql = "SELECT * FROM orders WHERE courier_id = ?";
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DatabaseConfig.connect()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
