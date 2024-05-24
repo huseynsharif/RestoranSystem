@@ -24,6 +24,7 @@ public class UserConsoleManager extends UserService {
         line();
         System.out.println("Login here.");
         line();
+        scanner.nextLine();
         String email = getRequiredInput("Email", (a)->false);
         String password = getRequiredInput("Password", (p) -> p.length() < 8);
 
