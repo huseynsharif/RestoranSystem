@@ -78,8 +78,8 @@ public class OrderDao implements IOrderDao {
     }
 
     @Override
-    public List<Order> findByCustomerIdAndStatusTrue(int customerId) {
-        String sql = "SELECT * FROM orders WHERE customerId=? AND active=true";
+    public List<Order> findByCustomerId(int customerId) {
+        String sql = "SELECT * FROM orders WHERE customerId=?";
         List<Order> orders = new ArrayList<>();
         try (Connection connection = DatabaseConfig.connect()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

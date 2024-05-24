@@ -9,6 +9,6 @@ public interface IOrderDao {
     List<Order> findAllByIsStatusTrue();
     Order findById(int id);
     void update(Order order);
-    List<Order> findByCustomerIdAndStatusTrue(int customerId);
+    List<Order> findByCustomerId(int customerId);
     List<Order> findByCourierIdAndStatusTrue(int courierId);
 }

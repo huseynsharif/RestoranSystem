@@ -21,7 +21,9 @@ public class UserConsoleManager extends UserService {
 
     @Override
     protected UserLoginRequest getLoginFields() {
-
+        line();
+        System.out.println("Login here.");
+        line();
         String email = getRequiredInput("Email", (a)->false);
         String password = getRequiredInput("Password", (p) -> p.length() < 8);
 
@@ -30,7 +32,7 @@ public class UserConsoleManager extends UserService {
 
     @Override
     public UserRegisterRequest getRegisterFields() {
-
+        line();
         System.out.println("Select your role: ");
         System.out.println("1) Customer");
         System.out.println("2) Courier");

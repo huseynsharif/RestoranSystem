@@ -19,4 +19,9 @@ public class Order {
     private Boolean active;
     private LocalDate creationDate;
 
+    public Order(int customerId, String orderName, LocalDate creationDate) {
+        this.customerId = customerId;
+        this.orderName = orderName;
+        this.creationDate = creationDate;
+    }
 }
